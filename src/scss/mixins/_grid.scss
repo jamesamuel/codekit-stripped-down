@@ -1,0 +1,57 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include breakpoint($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    // Grid template columns
+    @for $i from 1 through $grid-columns {
+      .#{$infix}cols-#{$i} {
+        grid-template-columns: repeat($i, 1fr);
+      }
+    }
+
+    // Grid template rows
+    @for $i from 1 through $grid-columns {
+      .#{$infix}rows-#{$i} {
+        grid-template-rows: repeat($i, 1fr);
+      }
+    }
+
+    // Grid span columns
+    @for $i from 1 through $grid-columns {
+      .#{$infix}col-#{$i} {
+        grid-column: span $i;
+      }
+    }
+
+    // Grid span rows
+    @for $i from 1 through $grid-columns {
+      .#{$infix}row-#{$i} {
+        grid-row: span $i;
+      }
+    }
+
+    // Grid gaps
+    @each $prop, $size in $spacers {
+      .#{$infix}gap-#{$prop} {
+        grid-gap: $size;
+      }
+    }
+
+    @each $prop, $size in $spacers {
+      .#{$infix}col-gap-#{$prop} {
+        grid-column-gap: $size;
+      }
+    }
+
+    @each $prop, $size in $spacers {
+      .#{$infix}row-gap-#{$prop} {
+        grid-row-gap: $size;
+      }
+    }
+
+    // Grid flow
+    .#{$infix}grid-flow-column {
+      grid-auto-flow: column;
+    }
+  }
+}

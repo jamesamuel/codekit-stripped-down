@@ -1,0 +1,23 @@
+@function breakpoint-min($name, $grid-breakpoints: $grid-breakpoints) {
+  $min: map-get($grid-breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+@function breakpoint-infix($name, $grid-breakpoints: $grid-breakpoints) {
+  @return if(
+    breakpoint-min($name, $grid-breakpoints) == null,
+    "",
+    "#{$name}\\:"
+  );
+}
+
+@mixin breakpoint($name, $grid-breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $grid-breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
